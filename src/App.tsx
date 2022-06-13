@@ -8,10 +8,10 @@ export type FilterType = 'all' | 'active' | 'completed'
 function App() {
 
     let [tasks, setTasks] = useState<Array<TaskType>>([
-        {id: v1(), title: 'Task 1', isDone: false},
-        {id: v1(), title: 'Task 2', isDone: false},
-        {id: v1(), title: 'Task 3', isDone: true},
-        {id: v1(), title: 'Task 4', isDone: true},
+        {id: v1(), title: 'coca cola', isDone: false},
+        {id: v1(), title: 'mirinda', isDone: false},
+        {id: v1(), title: 'sprite', isDone: true},
+        {id: v1(), title: 'pepsi', isDone: true},
     ])
     let [filter, setFilter] = useState<FilterType>('all')
 
@@ -37,9 +37,25 @@ function App() {
         filteredTasksButton = tasks.filter( t => t.isDone === false)
     }
 
+    const changeStatus = (taskID: string, isDone: boolean) => {
+        let task = tasks.find( t => t.id === taskID)
+        if (task) {
+            task.isDone = isDone
+        }
+        setTasks([...tasks])
+    }
+
     return (
         <div className="App">
-            <TodoList title={'SODA'} tasks={filteredTasksButton} removeTask={removeTask} filteredTasks={filteredTasks} addTask={addTask}/>
+            <TodoList
+                title={'SODA'}
+                tasks={filteredTasksButton}
+                removeTask={removeTask}
+                filteredTasks={filteredTasks}
+                addTask={addTask}
+                changeTaskStatus={changeStatus}
+                filter={filter}
+            />
         </div>
     )
 }
